@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
-      rel="stylesheet">
 <head>
     <meta charset="utf-8">
     <title>ToDo Web-API CRUD</title>
@@ -22,36 +20,27 @@
                     <a class="nav-link" href="#">На главную<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="Register.html">
+            <form class="form-inline my-2 my-lg-0" action="enter.html">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Вход</button>
             </form>
         </div>
     </nav>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
-            <div class="thumbnail">
-                <div class="header-h1">
-                    <h1>Day of the week</h1>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 centered">
             <div class="thumbnail">
                 <!--<h1 style="margin-left: 20px">-->
                 <div class="header-h1">
                     <h1>My day</h1>
                 </div><!--</h1style="margin-left:>-->
 
-                <p id="counter"></p>
+                <p style="margin-left: 20px" id="counter"></p>
 
                 <div style="margin-left: 20px">
                     <h3>Create a new task</h3>
                     <form>
                         <label for="createDiv">Task:</label>
                         <input id="createDiv" type="text" />
-                        <button class="btn  btn-primary" onclick="createDo(); return false;">Add</button>
+                        <button class="btn btn-default btn-sm btn-outline-primary" onclick="createDo(); return false;">Add</button>
                     </form>
                 </div>
 
@@ -68,21 +57,13 @@
 
                 <h3 style="margin-left: 20px">List</h3>
 
-                <div style="margin-left: 20px">
+                <div style="margin-left: 5px">
                     <div id="#doDiv"></div>
 
                 </div>
             </div>
             <div class="clearfix visible-md-block"></div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3">
-            <div class="thumbnail">
-                <div class="header-h1">
-                    <h1>Done</h1>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

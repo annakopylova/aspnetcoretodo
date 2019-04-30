@@ -37,9 +37,10 @@ function getDo() {
                 if (todo) {
                     var i;
                     for (i in todo) {
-                        todoHTML += '<div class="container-fluid" ><div class="panel panel-info"><span>' + todo[i].doId + ' : ' + todo[i].url + ' </span></div></div>';
-                        todoHTML += '<button type="button"  class="btn  btn-primary" onclick="editDo(' + todo[i].doId + ')">Edit</button>';
-                        todoHTML += '<button type="button" class="btn  btn-primary" onclick="deleteDo(' + todo[i].doId + ')"><span class = "glyphicon glyphicon-remove"></span></button></div>';
+                        todoHTML += '<div style="margin-top: 10px" class="container-fluid" ><div><span>' + todo[i].url + ' </span>';
+                        todoHTML += '<button style="margin-left: 10px" type="button" class="btn btn-default btn-sm btn-outline-success" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span >Done</button >';
+                        todoHTML += '<button style="margin-left: 10px" type="button"  class="btn btn-default btn-sm btn-outline-primary" onclick="editDo(' + todo[i].doId + ')">Edit</button>';
+                        todoHTML += '<button style="margin-left: 10px" type="button" class="btn btn-default btn-sm btn-outline-danger" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span > Remove </button ></div></div></div>';
                         if (typeof todo[i].task !== "undefined" && todo[i].task.length > 0) {
                             let j;
                             for (j in todo[i].task) {
@@ -101,6 +102,7 @@ function udateDo() {
 }
 
 function deleteDo(id) {
+    console.log('deletedo');
     let request = new XMLHttpRequest();
     request.open("DELETE", uri + id, false);
     request.onload = function () {
