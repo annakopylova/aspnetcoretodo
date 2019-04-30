@@ -1,0 +1,172 @@
+﻿body {
+}
+
+#editDiv {
+    display: none;
+}
+
+.todoText {
+    padding: 5px;
+    font-weight: bold;
+}
+
+.button {
+    padding: 10px;
+    width: 25%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.mainMargin {
+    margin-left: 16px
+}
+
+.button:hover {
+    background-color: #bbb;
+}
+
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+}
+
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.separator {
+    border-right: 1px solid #dfdfe0;
+}
+
+.facebook, .twitter {
+    min-width: 170px;
+}
+
+.facebook {
+    background-color: #354E84;
+    color: #fff;
+}
+
+.twitter {
+    background-color: #00A5E3;
+    color: #fff;
+}
+
+    .facebook:hover, .twitter:hover {
+        color: #fff;
+    }
+
+
+.form-width {
+    max-width: 25rem;
+}
+
+.has-float-label {
+    position: relative;
+}
+
+    .has-float-label label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: text;
+        font-size: 75%;
+        opacity: 1;
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        top: -.5em;
+        left: 0.75rem;
+        z-index: 3;
+        line-height: 1;
+        padding: 0 1px;
+    }
+
+        .has-float-label label::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            background: white;
+            height: 2px;
+            top: 50%;
+            left: -.2em;
+            right: -.2em;
+            z-index: -1;
+        }
+
+    .has-float-label .form-control::-webkit-input-placeholder {
+        opacity: 1;
+        -webkit-transition: all .2s;
+        transition: all .2s;
+    }
+
+    .has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+        opacity: 0;
+    }
+
+    .has-float-label .form-control:placeholder-shown:not(:focus) + label {
+        font-size: 150%;
+        opacity: .5;
+        top: .3em;
+    }
+
+.input-group .has-float-label {
+    display: table-cell;
+}
+
+    .input-group .has-float-label .form-control {
+        border-radius: 0.25rem;
+    }
+
+    .input-group .has-float-label:not(:last-child) .form-control {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .input-group .has-float-label:not(:first-child) .form-control {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        margin-left: -1px;
+    }
+.header-h1 h1 {
+    position: relative;
+    padding-bottom: .5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: #00838f;
+}
+
+    .header-h1 h1::before {
+        content: "";
+        position: absolute;
+        border-bottom: 2px solid #00838f;
+        bottom: .25rem;
+        left: 50%;
+        width: 30%;
+        transform: translateX(-50%);
+    }
+
+    .header-h1 h1::after {
+        content: "";
+        position: absolute;
+        border-bottom: 2px solid #00838f;
+        bottom: 0;
+        left: 50%;
+        width: 15%;
+        transform: translateX(-50%);
+    }
