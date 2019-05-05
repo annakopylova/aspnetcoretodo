@@ -37,10 +37,10 @@ function getDo() {
                 if (todo) {
                     var i;
                     for (i in todo) {
-                        todoHTML += '<div style="margin-top: 10px" class="container-fluid" ><div><span>' + todo[i].url + ' </span>';
-                        todoHTML += '<button style="margin-left: 10px" type="button" class="btn btn-default btn-sm btn-outline-success" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span >Done</button >';
-                        todoHTML += '<button style="margin-left: 10px" type="button"  class="btn btn-default btn-sm btn-outline-primary" onclick="editDo(' + todo[i].doId + ')">Edit</button>';
-                        todoHTML += '<button style="margin-left: 10px" type="button" class="btn btn-default btn-sm btn-outline-danger" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span > Remove </button ></div></div></div>';
+                        todoHTML += '<div style="margin-top: 10px" class="container-fluid" ></div><span><ul class="list-group"><li class="list-group-item"> <input type="checkbox" class="hidden-box" >' + todo[i].url + ' </li></ul></span>';
+                        //todoHTML += '<button style="margin-left: 235px" type="button" class="btn btn-primary btn-sm" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span >Done</button >';
+                        todoHTML += '<button style="margin-left: auto" type="button"  class="btn btn-success btn-sm" onclick="editDo(' + todo[i].doId + ')"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Edit</span></button>';
+                        todoHTML += '<button style="margin-left: 1px" type="button" class="btn btn-danger btn-sm" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span > Remove </button ></div></div></div>';
                         if (typeof todo[i].task !== "undefined" && todo[i].task.length > 0) {
                             let j;
                             for (j in todo[i].task) {
@@ -115,6 +115,12 @@ function closeInput() {
     let elm = document.querySelector("#editDiv");
     elm.style.display = "none";
 }
+
+
+
+
+
+
 function logIn() {
     var email, password = "";
     // Считывание данных с формы

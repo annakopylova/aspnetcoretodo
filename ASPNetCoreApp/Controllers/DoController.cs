@@ -95,5 +95,22 @@ namespace ASPNetCoreApp.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]//выполнение
+        public async Task<IActionResult> Done([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var item = _context.Do.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _context.Do.Remove(item);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
