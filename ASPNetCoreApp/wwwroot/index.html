@@ -41,44 +41,46 @@ body { /*background-color: #536691;*/ background-image: url("images/pismennie-in
     </div>
 </nav>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 centered">
-    <div class="thumbnail">
-        <!--<h1 style="margin-left: 20px">-->
-        <div class="header-h1">
-            <h1>My day</h1>
-        </div><!--</h1style="margin-left:>-->
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-5" style="width: 120%; min-width: 1080px; margin: 0 auto;">
+    <form class="card card-block m-x-auto bg-faded form-width centered" style="min-width: 720px; width: 100%; margin: 0 auto; padding: 40px;">
+        <div class="thumbnail">
+            <!--<h1 style="margin-left: 20px">-->
+            <div class="header-h1">
+                <h1 style="color: #000000">My day</h1>
+            </div><!--</h1style="margin-left:>-->
 
-        <p style="margin-left: 20px" id="counter"></p>
+            <p style="margin-left: 20px" id="counter"></p>
 
-        <div style="margin-left: 20px">
-            <h3>Create a new task</h3>
-            <form>
-                <label for="createDiv">Task:</label>
-                <input id="createDiv" type="text" />
-                <button class="btn btn-primary btn-sm" onclick="createDo(); return false;">Add</button>
-            </form>
+            <div style="margin-left: 20px">
+                <h3>Create a new task</h3>
+                <form>
+                    <label for="createDiv">Task:</label>
+                    <input id="createDiv" type="text" />
+                    <button class="btn btn-primary btn-sm" onclick="createDo(); return false;">Add</button>
+                </form>
+            </div>
+
+
+            <div id="editDiv" class="mainMargin">
+                <h3>Edit</h3>
+                <form class="my-form">
+                    <input type="hidden" id="edit-id">
+                    <input type="URL" id="edit-url">
+                    <button class="btn btn-primary btn-sm" onclick="udateDo(); return false;">Save</button>
+                    <a onclick="closeInput()" aria-label="Закрыть">&#10006;</a>
+                </form>
+            </div>
+
+            <h3 style="margin-left: 20px">List</h3>
+
+            <div style="margin-left: 5px">
+                <div id="#doDiv"></div>
+
+
+            </div>
         </div>
-
-
-        <div id="editDiv" class="mainMargin">
-            <h3>Edit</h3>
-            <form class="my-form">
-                <input type="hidden" id="edit-id">
-                <input type="URL" id="edit-url">
-                <button class="btn btn-primary btn-sm" onclick="udateDo(); return false;">Save</button>
-                <a onclick="closeInput()" aria-label="Закрыть">&#10006;</a>
-            </form>
-        </div>
-
-        <h3 style="margin-left: 20px">List</h3>
-
-                           <div style="margin-left: 5px">
-                        <div id="#doDiv"></div>
-                
-            
-        </div>
-    </div>
-    <div class="clearfix visible-md-block"></div>
+        <div class="clearfix visible-md-block"></div>
+        </form>
 </div>
 <script src="js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

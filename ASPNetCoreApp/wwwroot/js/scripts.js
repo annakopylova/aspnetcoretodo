@@ -26,7 +26,8 @@ function getDo() {
     request.open("GET", uri);
     request.onload = function () {
         let todo = "";
-        let todoHTML = "";
+        let todoHTML = ""; 
+        console.log(request.responseText);
         todo = JSON.parse(request.responseText);
 
         console.log(todo);
@@ -37,7 +38,14 @@ function getDo() {
                 if (todo) {
                     var i;
                     for (i in todo) {
-                        todoHTML += '<div style="margin-top: 10px" class="container-fluid" ></div><span><ul class="list-group"><li class="list-group-item"> <input type="checkbox" class="hidden-box" >' + todo[i].url + ' </li></ul></span>';
+                        console.log(todo[i]);
+                        let checkedFlag;
+                        if (todo[i].status === true) {
+                            checkedFlag = 'checked';
+                        } else {
+                            checkedFlag = '';
+                        }
+                        todoHTML += '<div style="margin-top: 10px" class="container-fluid" ></div><span><ul class="list-group"><li class="list-group-item"> <input type="checkbox" onclick="handleChange(' + !(todo[i].status === true) + ',' + todo[i].doId + ',\'' + todo[i].url + '\')" ' + checkedFlag + ' style="margin-right: 20px; height: 20px; width: 20px;">' + todo[i].url + ' </li></ul></span>';
                         //todoHTML += '<button style="margin-left: 235px" type="button" class="btn btn-primary btn-sm" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span >Done</button >';
                         todoHTML += '<button style="margin-left: auto" type="button"  class="btn btn-success btn-sm" onclick="editDo(' + todo[i].doId + ')"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Edit</span></button>';
                         todoHTML += '<button style="margin-left: 1px" type="button" class="btn btn-danger btn-sm" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span > Remove </button ></div></div></div>';
@@ -56,6 +64,20 @@ function getDo() {
         }
     };
     request.send();
+}
+
+function handleChange(checkbox, todoid, url) {
+    console.log(checkbox);
+    console.log(todoid);
+    console.log(url);
+    var request = new XMLHttpRequest();
+    request.open("PUT", uri + todoid);
+    request.onload = function () {
+        getDo();
+    };
+    request.setRequestHeader("Accepts", "application/json;charset=UTF-8");
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify({ todoid: todoid, url: url, status: checkbox }));
 }
 
 function createDo() {

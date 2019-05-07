@@ -11,6 +11,7 @@ namespace ASPNetCoreApp.Models
 
         public int DoId { get; set; }
         public string Url { get; set; }
+        public bool Status { get; set; }
 
         public virtual ICollection<Task> Task { get; set; }
     }

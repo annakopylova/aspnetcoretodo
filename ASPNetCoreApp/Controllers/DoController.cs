@@ -74,6 +74,7 @@ namespace ASPNetCoreApp.Controllers
                 return NotFound();
             }
             item.Url = Do.Url;
+            item.Status = Do.Status;
             _context.Do.Update(item);
             await _context.SaveChangesAsync();
             return NoContent();
