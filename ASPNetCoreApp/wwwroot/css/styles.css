@@ -1,4 +1,6 @@
-﻿
+﻿.msgClass {
+    color: red;
+}
 .centered {
     display: block;
     margin-left: auto;

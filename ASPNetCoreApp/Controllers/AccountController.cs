@@ -26,9 +26,17 @@ namespace ASPNetCoreApp.Controllers
             {
                 User user = new User { Email = model.Email, UserName = model.Email };
                 // Добавление нового пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = new IdentityResult();
+                try
+                {
+                    result = await _userManager.CreateAsync(user, model.Password);
+                } catch (System.Exception e)
+                {
+                    e.GetHashCode();
+                }
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "user");
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
                     var msg = new

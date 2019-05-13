@@ -1,10 +1,9 @@
-﻿const uri = "/api/account/Register";
+﻿const uri = "/api/account/Login";
 function Register() {
     console.log('registering');
     // Считывание данных с формы
     var email = document.querySelector("#username").value;
     var password = document.querySelector("#password").value;
-    var passwordonemore = document.querySelector("#passwordonemore").value;
 
     let request = new XMLHttpRequest();
     request.open("POST", uri);
@@ -24,16 +23,14 @@ function Register() {
     console.log(JSON.stringify({
         Email: email,
         Password: password,
-        PasswordConfirm: passwordonemore
     }));
     // Запрос на сервер
     request.send(JSON.stringify({
         Email: email,
         Password: password,
-        PasswordConfirm: passwordonemore
     }));
     console.log(request);
-}
+}   
 
 // Разбор ответа
 function ParseResponse(e) {

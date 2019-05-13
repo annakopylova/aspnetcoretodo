@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 namespace ASPNetCoreApp.Controllers
+    
 {
     [Route("api/do")]
     [ApiController]
@@ -48,6 +50,7 @@ namespace ASPNetCoreApp.Controllers
 
             return Ok(Do);
         }
+        [Authorize]
         [HttpPost]//создание дела
         public async Task<IActionResult> Create([FromBody] Do Do)
         {
@@ -61,6 +64,7 @@ namespace ASPNetCoreApp.Controllers
 
             return CreatedAtAction("GetDo", new { id = Do.DoId }, Do);
         }
+        [Authorize]
         [HttpPut("{id}")]//обновление
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Do Do)
         {
@@ -80,7 +84,8 @@ namespace ASPNetCoreApp.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]//удаление
+        [Authorize(Roles = "admin")]//удаление
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)

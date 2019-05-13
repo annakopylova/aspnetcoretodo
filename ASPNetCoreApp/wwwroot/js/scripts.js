@@ -86,8 +86,18 @@ function createDo() {
     var request = new XMLHttpRequest();
     request.open("POST", uri);
     request.onload = function () {
-        getDo();
-        document.querySelector("#createDiv").value = "";
+
+        // Обработка кода ответа
+        var msg = "";
+        if (request.status === 401) {
+            msg = "У вас не хватает прав для создания";
+        } else if (request.status === 201) {
+            msg = "Задание добавлено";
+            getBlogs();
+        } else {
+            msg = "Неизвестная ошибка";
+        }
+        document.querySelector("#actionMsg").innerHTML = msg;
     };
     request.setRequestHeader("Accepts", "application/json;charset=UTF-8");
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
