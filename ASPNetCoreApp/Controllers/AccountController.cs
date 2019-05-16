@@ -38,7 +38,7 @@ namespace ASPNetCoreApp.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "user");
                     // установка куки
-                    await _signInManager.SignInAsync(user, false);
+                    await _signInManager.SignInAsync(user, true);
                     var msg = new
                     {
                         message = "Добавлен новый пользователь: " + user.UserName
@@ -130,7 +130,7 @@ namespace ASPNetCoreApp.Controllers
         public async Task<IActionResult> LogisAuthenticatedOff()
         {
             User usr = await GetCurrentUserAsync();
-            var message = usr == null ? "Вы Гость. Пожалуйста, выполните вход." : "Вы вошли как: " + usr.UserName;
+            var message = usr == null ? "guest" : usr.UserName;
             var msg = new
             {
                 message

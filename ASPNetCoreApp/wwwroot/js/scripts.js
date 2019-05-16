@@ -3,14 +3,21 @@ const uri = "/api/do/";
 let items = null;
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    getDo();
-    // Обработка кликов по кнопкам
-    document.getElementById("loginBtn").addEventListener("click", logIn);
-    document.getElementById("logoffBtn").addEventListener("click", logOff);
-    getCurrentUser();
+    if (localStorage.getItem('entered') === null) { // вошли ли мы в аккаунт
+        window.location.href = "../enter.html"; // если нет, то переход на вход
+    } else {
+        getDo(); // получаем все элементы списка
+        getCurrentUser(); // получаем текущий статус авторизации
+        setUserLoginTextField(localStorage.getItem('name')); // установка имени
+    }
 });
 
-function getCount(data) {
+function setUserLoginTextField(name) {
+    console.log(name);
+    document.querySelector("#userLogin").textContent = "Вы вошли как " + name;
+}
+
+function getCount(data) { // счетчик элементов списка
     const el = document.querySelector("#counter");
     let name = "Number of tasks: ";
     if (data > 0) {
@@ -20,11 +27,12 @@ function getCount(data) {
     }
 }
 
-function getDo() {
-    console.log('getdo')
+function getDo() { // получаем элементы списка
     let request = new XMLHttpRequest();
     request.open("GET", uri);
     request.onload = function () {
+
+        // когда получим ответ - наполняем список элементами
         let todo = "";
         let todoHTML = ""; 
         console.log(request.responseText);
@@ -37,14 +45,14 @@ function getDo() {
             if (todo.length > 0) {
                 if (todo) {
                     var i;
-                    for (i in todo) {
+                    for (i in todo) { // создаем элементы списка
                         console.log(todo[i]);
                         let checkedFlag;
                         if (todo[i].status === true) {
                             checkedFlag = 'checked';
                         } else {
                             checkedFlag = '';
-                        }
+                        } // создаем html-элементы для списка
                         todoHTML += '<div style="margin-top: 10px" class="container-fluid" ></div><span><ul class="list-group"><li class="list-group-item"> <input type="checkbox" onclick="handleChange(' + !(todo[i].status === true) + ',' + todo[i].doId + ',\'' + todo[i].url + '\')" ' + checkedFlag + ' style="margin-right: 20px; height: 20px; width: 20px;">' + todo[i].url + ' </li></ul></span>';
                         //todoHTML += '<button style="margin-left: 235px" type="button" class="btn btn-primary btn-sm" onclick="deleteDo(' + todo[i].doId + ')"> <span class="glyphicon glyphicon-remove" ></span >Done</button >';
                         todoHTML += '<button style="margin-left: auto" type="button"  class="btn btn-success btn-sm" onclick="editDo(' + todo[i].doId + ')"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Edit</span></button>';
@@ -66,21 +74,21 @@ function getDo() {
     request.send();
 }
 
-function handleChange(checkbox, todoid, url) {
+function handleChange(checkbox, todoid, url) { // отметка дела сделанного 
     console.log(checkbox);
     console.log(todoid);
     console.log(url);
     var request = new XMLHttpRequest();
     request.open("PUT", uri + todoid);
     request.onload = function () {
-        getDo();
+        getDo(); // перезагрузили
     };
     request.setRequestHeader("Accepts", "application/json;charset=UTF-8");
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify({ todoid: todoid, url: url, status: checkbox }));
 }
 
-function createDo() {
+function createDo() { // создать дело
     let urlText = "";
     urlText = document.querySelector("#createDiv").value;
     var request = new XMLHttpRequest();
@@ -93,7 +101,7 @@ function createDo() {
             msg = "У вас не хватает прав для создания";
         } else if (request.status === 201) {
             msg = "Задание добавлено";
-            getBlogs();
+            getDo();
         } else {
             msg = "Неизвестная ошибка";
         }
@@ -104,7 +112,21 @@ function createDo() {
     request.send(JSON.stringify({ url: urlText }));
 }
 
-function editDo(id) {
+function logoff() { // выход
+    let urlText = "";
+    urlText = document.querySelector("#createDiv").value;
+    var request = new XMLHttpRequest();
+    request.open("POST", '/api/account/logoff');
+    request.onload = function () {
+        localStorage.removeItem('entered'); // убрать запись о входе из внутреннего хранилища
+        window.location.href = "../enter.html";
+    };
+    request.setRequestHeader("Accepts", "application/json;charset=UTF-8");
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send();
+}
+
+function editDo(id) { // изменить дело
     let elm = document.querySelector("#editDiv");
     elm.style.display = "block";
     if (items) {
@@ -118,7 +140,7 @@ function editDo(id) {
     }
 }
 
-function udateDo() {
+function udateDo() { // запрос - обновить дело
     const todo = {
         todoid: document.querySelector("#edit-id").value,
         url: document.querySelector("#edit-url").value
@@ -133,27 +155,25 @@ function udateDo() {
     request.send(JSON.stringify(todo));
 }
 
-function deleteDo(id) {
+function deleteDo(id) { // удалить дело
     console.log('deletedo');
     let request = new XMLHttpRequest();
     request.open("DELETE", uri + id, false);
     request.onload = function () {
         getDo();
+        if (request.status === 401) {
+            document.querySelector("#actionMsg").textContent = 'У вас не хватает прав для удаления';
+        }
     };
     request.send();
 }
 
-function closeInput() {
+function closeInput() { // убрать поле редактирования дела
     let elm = document.querySelector("#editDiv");
     elm.style.display = "none";
 }
 
-
-
-
-
-
-function logIn() {
+function logIn() { // запрос на вход
     var email, password = "";
     // Считывание данных с формы
     email = document.getElementById("Email").value;
@@ -192,28 +212,13 @@ function logIn() {
     }));
 }
 
-function logOff() {
-    var request = new XMLHttpRequest();
-    request.open("POST", "api/account/logoff");
-    request.onload = function () {
-        var msg = JSON.parse(this.responseText);
-        document.getElementById("msg").innerHTML = "";
-        var mydiv = document.getElementById('formError');
-        while (mydiv.firstChild) {
-            mydiv.removeChild(mydiv.firstChild);
-        }
-        document.getElementById("msg").innerHTML = msg.message;
-    };
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send();
-}
-function getCurrentUser() {
+function getCurrentUser() { //  получаем текущий статус авторизации
     let request = new XMLHttpRequest();
     request.open("POST", "/api/Account/isAuthenticated", true);
     request.onload = function () {
         let myObj = "";
         myObj = request.responseText !== "" ? JSON.parse(request.responseText) : {};
-        document.getElementById("msg").innerHTML = myObj.message;
+       //document.getElementById("msg").innerHTML = myObj.message;
     };
     request.send();
 }
